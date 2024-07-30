@@ -7,16 +7,19 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+            // Display the main menu
             printMenu();
             int option = getUserOption(sc);
 
             switch (option) {
                 case 1 -> {
+                    // Get booking details from the user
                     char source = getUserSource(sc);
                     char destination = getUserDestination(sc);
                     int seats = getNumberOfSeats(sc);
 
                     if (source != destination) {
+                        // Create a booking and execute it
                         TicketBooking booking = new TicketBooking(source, destination, seats);
                         booking.execute();
                     } else {
@@ -24,19 +27,26 @@ public class Main {
                     }
                 }
                 case 2 -> {
+                    // Get cancellation details from the user
                     int pnr = getPnrNumber(sc);
                     int seats = getNumberOfSeatsToCancel(sc);
 
+                    // Create a cancellation and execute it
                     TicketCanceling canceling = new TicketCanceling(pnr, seats);
                     canceling.execute();
                 }
                 case 3 -> {
+                    // Print the current booking chart
                     TicketSystem.getInstance().printChart();
                 }
-                default -> {
-                    System.out.println("Invalid option. Exiting the system. Thank you!");
+                case 4 -> {
+                    // Exit the system
+                    System.out.println("Exiting the system. Thank you!");
                     sc.close();
                     return;
+                }
+                default -> {
+                    System.out.println("Invalid option. Please choose again.");
                 }
             }
         }
@@ -47,6 +57,7 @@ public class Main {
         System.out.println("1. Book Ticket");
         System.out.println("2. Cancel Ticket");
         System.out.println("3. Print Chart");
+        System.out.println("4. Exit");
         System.out.print("Choose an option: ");
     }
 
@@ -95,4 +106,3 @@ public class Main {
         return sc.nextInt();
     }
 }
-
